@@ -103,3 +103,12 @@ pub fn print_patients(patients: &[Patient]) {
         println!();
     }
 }
+
+/// Additional analysis functions :)
+pub fn count_patients(patients: &[Patient]) -> usize {
+    patients.len()
+}
+
+pub fn count_total_visits(patients: &[Patient]) -> usize {
+    patients.iter().map(|p| p.visits.len()).sum()
+}
