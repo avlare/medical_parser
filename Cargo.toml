@@ -1,0 +1,12 @@
+﻿[package]
+name = "medical_parser"
+version = "0.1.0"
+edition = "2024"
+license="MIT"
+description="A parser for medical-data markup in an XML-like DSL."
+
+[dependencies]
+anyhow = "1.0.100"
+pest = "2.7"
+pest_derive = "2.7"
+thiserror = "1"

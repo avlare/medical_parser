@@ -1,0 +1,44 @@
+<patient>
+    <name>Big Meow</name>
+    <age>110</age>
+
+    <visit>
+        <diagnosis>Flu</diagnosis>
+        <temperature>38.1</temperature>
+        <notes>Feeling weak, advised rest.</notes>
+    </visit>
+
+    <visit>
+        <diagnosis>Check-up</diagnosis>
+        <temperature>36.7</temperature>
+        <notes>Condition improved, normal activity allowed.</notes>
+    </visit>
+</patient>
+
+<patient>
+    <name>Small Meow</name>
+    <age>10</age>
+
+    <visit>
+        <diagnosis>Flu</diagnosis>
+        <temperature>38.0</temperature>
+        <notes>Recovered fully after 5 days.</notes>
+    </visit>
+
+    <visit>
+        <diagnosis>Routine vaccination</diagnosis>
+        <temperature>36.8</temperature>
+        <notes>No side effects observed.</notes>
+    </visit>
+</patient>
+
+<patient>
+    <name>Lazy Cat</name>
+    <age>7</age>
+
+    <visit>
+        <diagnosis>Allergy</diagnosis>
+        <temperature>37.2</temperature>
+        <notes>Treated with antihistamines; follow-up scheduled.</notes>
+    </visit>
+</patient>

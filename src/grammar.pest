@@ -1,0 +1,15 @@
+file = { SOI ~ patient+ ~ EOI }
+
+patient = { "<patient>" ~ name ~ age ~ visit* ~ "</patient>" }
+visit = { "<visit>" ~ (diagnosis | temperature | notes)* ~ "</visit>" }
+
+name = { "<name>" ~ text ~ "</name>" }
+age = { "<age>" ~ number ~ "</age>" }
+diagnosis = { "<diagnosis>" ~ text ~ "</diagnosis>" }
+temperature = { "<temperature>" ~ number ~ "</temperature>" }
+notes = { "<notes>" ~ text ~ "</notes>" }
+
+text = @{ (!"<" ~ ANY)+ }
+number = @{ "-"? ~ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)? }
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
