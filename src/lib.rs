@@ -22,15 +22,17 @@ pub struct Visit {
 
 #[derive(Error, Debug)]
 pub enum ParseError {
-    #[error("Failed to parse input: {0}")]
-    PestError(#[from] pest::error::Error<Rule>),
+    #[error(transparent)]
+    PestError(#[from] Box<pest::error::Error<Rule>>),
 
     #[error("Invalid data format: {0}")]
     DataError(String),
 }
 
+
 pub fn parse_medical_document(input: &str) -> Result<Vec<Patient>, ParseError> {
-    let pairs = Grammar::parse(Rule::file, input)?;
+    let pairs = Grammar::parse(Rule::file, input)
+        .map_err(|e| ParseError::PestError(Box::new(e)))?;
     let mut patients = Vec::new();
 
     for p in pairs {

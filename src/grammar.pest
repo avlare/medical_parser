@@ -1,15 +1,37 @@
+/// The root grammar rule for the medical XML file.
+/// Defines that the file starts (`SOI`) and ends (`EOI`) with one or more `patient` entries.
 file = { SOI ~ patient+ ~ EOI }
 
+/// Represents a single patient entry.
+/// Each patient must include a `<name>`, an `<age>`, and zero or more `<visit>` elements.
 patient = { "<patient>" ~ name ~ age ~ visit* ~ "</patient>" }
+
+/// Defines the structure of a medical visit.
+/// A visit may include a diagnosis, temperature, and doctor's notes.
 visit = { "<visit>" ~ (diagnosis | temperature | notes)* ~ "</visit>" }
 
+/// The patient's name field.
 name = { "<name>" ~ text ~ "</name>" }
+
+/// The patient's age field (integer or numeric).
 age = { "<age>" ~ number ~ "</age>" }
+
+/// The diagnosis element that stores the medical condition.
 diagnosis = { "<diagnosis>" ~ text ~ "</diagnosis>" }
+
+/// The temperature element that stores a float number.
 temperature = { "<temperature>" ~ number ~ "</temperature>" }
+
+/// Notes provided by the doctor, stored as text.
 notes = { "<notes>" ~ text ~ "</notes>" }
 
+/// Generic rule for text content inside tags.
+/// Accepts any characters except `<`.
 text = @{ (!"<" ~ ANY)+ }
+
+/// Generic rule for numeric values.
+/// Matches integers and decimal numbers (e.g., 38 or 36.7).
 number = @{ "-"? ~ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)? }
 
+/// Defines whitespace characters to ignore: spaces, tabs, carriage returns, and newlines.
 WHITESPACE = _{ " " | "\t" | "\r" | "\n" }

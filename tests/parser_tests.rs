@@ -35,3 +35,45 @@ fn test_parse_basic_patient() -> Result<()> {
 
     Ok(())
 }
+
+#[test]
+fn test_parse_multiple_patients() -> Result<()> {
+    let input = r#"
+    <patient>
+        <name>Lilililalala</name>
+        <age>42</age>
+        <visit>
+            <diagnosis>Check-up</diagnosis>
+            <temperature>36.5</temperature>
+            <notes>All good.</notes>
+        </visit>
+    </patient>
+    <patient>
+        <name>LilililalalaLululuku</name>
+        <age>36</age>
+    </patient>
+    "#;
+
+    let patients = parse_medical_document(input)?;
+    assert_eq!(patients.len(), 2);
+    assert_eq!(patients[0].name, "Lilililalala");
+    assert_eq!(patients[1].visits.len(), 0);
+
+    Ok(())
+}
+
+#[test]
+fn test_parse_missing_age_is_err() {
+    let input = r#"
+    <patient>
+        <name>No Age</name>
+        <visit>
+            <diagnosis>Check-up</diagnosis>
+            <temperature>36.7</temperature>
+            <notes>Missing age should fail.</notes>
+        </visit>
+    </patient>
+    "#;
+
+    assert!(parse_medical_document(input).is_err());
+}
