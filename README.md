@@ -1,5 +1,7 @@
 # medical_parser
 
+**Crate: https://crates.io/crates/medical_parser**
+
 This Rust library provides a simple XML-like parser for medical patient records.
 It extracts structured information about patients, their personal data, and visit histories, using the pest parsing framework.
 
@@ -7,7 +9,7 @@ It extracts structured information about patients, their personal data, and visi
 
 - Parses a tag-based XML dialect containing `<patient>`, `<name>`, `<age>`, and optional `<visit>` sections.  
 - Produces strongly typed `Patient` and `Visit` records that can be consumed programmatically.  
-- Provides CLI summaries reporting patient counts, visit diagnoses, temperatures, and notes.
+- Provides CLI summaries reporting patient counts, overall visits, and every patient info.
 
 ## Parsing Overview
 
@@ -23,6 +25,29 @@ XML file ──► parse medical document ──► Patient & Visit structures �
 2. `pest` parses the XML grammar described below.
 3. Parsed pairs are transformed into `Patient` and `Visit` structures.
 4. Library consumers operate on the typed structures; the CLI prints neatly formatted summaries.
+
+---
+
+## File example 
+
+```
+<patient>
+    <name>Meow</name>
+    <age>10</age>
+
+    <visit>
+        <diagnosis>Flu</diagnosis>
+        <temperature>38.0</temperature>
+        <notes>Recovered fully after 5 days.</notes>
+    </visit>
+
+    <visit>
+        <diagnosis>Routine vaccination</diagnosis>
+        <temperature>36.8</temperature>
+        <notes>No side effects observed.</notes>
+    </visit>
+</patient>
+```
 
 ---
 
