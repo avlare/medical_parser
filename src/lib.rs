@@ -1,4 +1,4 @@
-﻿use pest::Parser;
+use pest::Parser;
 use pest_derive::Parser;
 use thiserror::Error;
 
@@ -29,10 +29,9 @@ pub enum ParseError {
     DataError(String),
 }
 
-
 pub fn parse_medical_document(input: &str) -> Result<Vec<Patient>, ParseError> {
-    let pairs = Grammar::parse(Rule::file, input)
-        .map_err(|e| ParseError::PestError(Box::new(e)))?;
+    let pairs =
+        Grammar::parse(Rule::file, input).map_err(|e| ParseError::PestError(Box::new(e)))?;
     let mut patients = Vec::new();
 
     for p in pairs {
