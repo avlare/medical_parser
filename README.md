@@ -2,6 +2,8 @@
 
 **Crate: https://crates.io/crates/medical_parser**
 
+**Docs: https://docs.rs/medical_parser/0.1.1**
+
 This Rust library provides a simple XML-like parser for medical patient records.
 It extracts structured information about patients, their personal data, and visit histories, using the pest parsing framework.
 
