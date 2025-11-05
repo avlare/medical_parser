@@ -1,4 +1,4 @@
-use pest::Parser;
+﻿use pest::Parser;
 use pest_derive::Parser;
 use thiserror::Error;
 
@@ -6,6 +6,7 @@ use thiserror::Error;
 #[grammar = "grammar.pest"]
 pub struct Grammar;
 
+/// Represents a single patient record.
 #[derive(Debug)]
 pub struct Patient {
     pub name: String,
@@ -13,6 +14,7 @@ pub struct Patient {
     pub visits: Vec<Visit>,
 }
 
+/// Represents one medical visit.
 #[derive(Debug)]
 pub struct Visit {
     pub diagnosis: String,
@@ -29,6 +31,7 @@ pub enum ParseError {
     DataError(String),
 }
 
+/// Parses a full medical document and returns a list of patients.
 pub fn parse_medical_document(input: &str) -> Result<Vec<Patient>, ParseError> {
     let pairs =
         Grammar::parse(Rule::file, input).map_err(|e| ParseError::PestError(Box::new(e)))?;
@@ -45,6 +48,7 @@ pub fn parse_medical_document(input: &str) -> Result<Vec<Patient>, ParseError> {
     Ok(patients)
 }
 
+/// Parses a single `<patient>` element.
 fn parse_patient(pair: pest::iterators::Pair<Rule>) -> Result<Patient, ParseError> {
     let mut name = String::new();
     let mut age = 0;
@@ -68,6 +72,7 @@ fn parse_patient(pair: pest::iterators::Pair<Rule>) -> Result<Patient, ParseErro
     Ok(Patient { name, age, visits })
 }
 
+/// Parses a single `<visit>` element.
 fn parse_visit(pair: pest::iterators::Pair<Rule>) -> Result<Visit, ParseError> {
     let mut diagnosis = String::new();
     let mut temperature = 0.0;
@@ -95,6 +100,7 @@ fn parse_visit(pair: pest::iterators::Pair<Rule>) -> Result<Visit, ParseError> {
     })
 }
 
+/// Prints patient and visit data in a readable format.
 pub fn print_patients(patients: &[Patient]) {
     for p in patients {
         println!("{} (age {})", p.name, p.age);
@@ -105,11 +111,12 @@ pub fn print_patients(patients: &[Patient]) {
     }
 }
 
-/// Additional analysis functions :)
+/// Returns the number of patients in the document.
 pub fn count_patients(patients: &[Patient]) -> usize {
     patients.len()
 }
 
+/// Returns the total number of visits across all patients.
 pub fn count_total_visits(patients: &[Patient]) -> usize {
     patients.iter().map(|p| p.visits.len()).sum()
 }
